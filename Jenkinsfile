@@ -17,7 +17,7 @@ pipeline {
         }
         stage('test') {
             when {
-                expressions {
+                expression {
                     // BRANCH_NAME == 'DEV' || BRANCH_NAME == "master"
                     // BRANCH_NAME with variable 
                     // BRANCH_NAME == 'dev' && CODE_CHANNGES == true
