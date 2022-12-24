@@ -2,6 +2,9 @@
 def gv
 pipeline {
     agent any
+    tools {
+        maven 'maven3.8'
+    }
     environment {
         // define new environment variable here for all stages on pipeline 
         NEW_VERSION = '1.0.1'
