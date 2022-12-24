@@ -15,12 +15,17 @@ pipeline {
     }
     stages {
         stage('init'){
-        gv = load 'script.groovy' 
+         script{
+            gv = load 'script.groovy' 
+         }
         }
         stage('build') {
             steps {
                 echo 'building the app....'
+                script {
+
                 gv.buildjar()
+                }
             }
         }
         // stage('test') {
@@ -40,7 +45,10 @@ pipeline {
         stage('pushtodockerhub') {
                 steps {
                     echo 'app is deploy in dev ....'
+                    script{
+
                     gv.buildImage()
+                    }
                 }
             }
         stage('prod') {
