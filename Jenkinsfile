@@ -1,4 +1,5 @@
 // CODE_CHANNGES = getChanges()
+def gv
 pipeline {
     agent any
     environment {
@@ -10,28 +11,33 @@ pipeline {
         booleanParam(name: 'executeTests', defaultValue:true , description:"execute the tests or not")
     }
     stages {
+        stage('init'){
+        gv = load 'script.groovy' 
+        }
         stage('build') {
             steps {
                 echo 'building the app....'
+                gv.buildjar()
             }
         }
-        stage('test') {
-            when {
-                expression {
-                    // BRANCH_NAME == 'DEV' || BRANCH_NAME == "master"
-                    // BRANCH_NAME with variable 
-                    // BRANCH_NAME == 'dev' && CODE_CHANNGES == true
-                    params.executeTests == true
-                }
-            }
-            steps {
-                echo 'app is  in testing ....'
-                // echo " to print env variable ${NEW_VERSION}"z
-            }
-        }
-        stage('dev') {
+        // stage('test') {
+        //     when {
+        //         expression {
+        //             // BRANCH_NAME == 'DEV' || BRANCH_NAME == "master"
+        //             // BRANCH_NAME with variable 
+        //             // BRANCH_NAME == 'dev' && CODE_CHANNGES == true
+        //             params.executeTests == true
+        //         }
+        //     }
+        //     steps {
+        //         echo 'app is  in testing ....'
+        //         // echo " to print env variable ${NEW_VERSION}"z
+        //     }
+        // }
+        stage('pushtodockerhub') {
                 steps {
                     echo 'app is deploy in dev ....'
+                    gv.buildImage()
                 }
             }
         stage('prod') {
