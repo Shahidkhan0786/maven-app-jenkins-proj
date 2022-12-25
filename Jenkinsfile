@@ -22,6 +22,11 @@ pipeline {
          }
         }
         stage('build') {
+            when {
+                expression {
+                    BRANCH_NAME == 'master'
+                }
+            }
             steps {
                 echo 'building the app....'
                 script {
@@ -45,6 +50,11 @@ pipeline {
         //     }
         // }
         stage('pushtodockerhub') {
+            when{
+                expression {
+                    BRANCH_NAME == 'master'
+                }
+            }
                 steps {
                     echo 'app is deploy in dev ....'
                     script{
