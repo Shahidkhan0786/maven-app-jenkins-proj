@@ -33,7 +33,7 @@ pipeline {
                 echo 'building the app....'
                 script {
 
-                // gv.buildjar()
+                gv.buildjar()
                 }
             }
         }
@@ -61,7 +61,7 @@ pipeline {
                     echo 'app is deploy in dev ....'
                     script{
 
-                    // gv.buildImage()
+                    gv.buildImage()
                     }
                 }
             }
