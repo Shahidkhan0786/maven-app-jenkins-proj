@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 // CODE_CHANNGES = getChanges()
 def gv
 pipeline {
@@ -31,7 +33,7 @@ pipeline {
                 echo 'building the app....'
                 script {
 
-                gv.buildjar()
+                // gv.buildjar()
                 }
             }
         }
@@ -59,7 +61,7 @@ pipeline {
                     echo 'app is deploy in dev ....'
                     script{
 
-                    gv.buildImage()
+                    // gv.buildImage()
                     }
                 }
             }
@@ -67,6 +69,13 @@ pipeline {
                 steps {
                     echo 'app is deploying in prod...'
                     echo "app is deploying in prod version ${params.Version}..."
+                    script {
+                        sshagent(['ec2-user-key']) {
+                                // some block
+                                def dockercmd = 'docker run -p 3080:3080 -d shahid78600/mernapp:1.0'
+                                sh "ssh -o StrictHostKeyChecking=no ec2-user@43.204.111.33 ${dockercmd}"
+                            }
+                    }
                 }
             }
     }

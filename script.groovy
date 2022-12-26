@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def buildjar(){
     echo "bilding thr app...."
     sh 'mvn package'
